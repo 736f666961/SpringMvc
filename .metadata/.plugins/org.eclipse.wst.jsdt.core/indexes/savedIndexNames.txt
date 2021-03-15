@@ -1,8 +1,0 @@
-INDEX VERSION 1.4+C:\Users\Sofia\Desktop\SprMvc\.metadata\.plugins\org.eclipse.wst.jsdt.core\indexes
-2587982768.index
-1370273268.index
-1674963029.index
-1102770774.index
-3756081597.index
-273084366.index
-2345378670.index

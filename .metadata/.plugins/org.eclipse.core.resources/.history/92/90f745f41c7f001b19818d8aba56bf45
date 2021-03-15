@@ -1,5 +1,0 @@
-package ma.youcode.api.dao;
-
-public class UserDao {
-	
-}

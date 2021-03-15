@@ -1,5 +1,0 @@
-package ma.youcode.api.resultextractor;
-
-public class UserRowMapper {
-
-}

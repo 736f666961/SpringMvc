@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<typeInfoHistroy>
-    <typeInfo handle="=FinalSpringMvc/src\/main\/java&lt;ma.youcode.api.dao{AdminDAO.java[AdminDAO" modifiers="513" timestamp="1615410887360"/>
-    <typeInfo handle="=FinalSpringMvc/src\/main\/java&lt;ma.youcode.api.service{UserService.java[UserService" modifiers="513" timestamp="1615446570377"/>
-    <typeInfo handle="=FinalSpringMvc/src\/main\/java&lt;ma.youcode.api.service{AppointmentService.java[AppointmentService" modifiers="513" timestamp="1615412544298"/>
-    <typeInfo handle="=FinalSpringMvc/src\/main\/java&lt;ma.youcode.api.dao{AppointmentDAO.java[AppointmentDAO" modifiers="513" timestamp="1615412489190"/>
-    <typeInfo handle="=FinalSpringMvc/src\/main\/java&lt;ma.youcode.api.service{MailService.java[MailService" modifiers="513" timestamp="1615328072492"/>
-</typeInfoHistroy>

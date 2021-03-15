@@ -1,9 +1,0 @@
-package ma.youcode.api.service;
-
-import ma.youcode.api.model.User;
-
-public interface UserService {
-	int saveUser(User user);
-
-	User login(String email, String password);
-}

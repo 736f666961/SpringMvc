@@ -1,7 +1,0 @@
-package ma.youcode.api.dao;
-
-import ma.youcode.api.model.User;
-
-public class UserDao {
-	void saveUser(User user);
-}
