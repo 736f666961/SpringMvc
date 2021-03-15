@@ -13,17 +13,12 @@ public class MailServiceImpl implements MailService {
 
     @Override
     public void sendSimpleMessage(String to, String subject, String text) {
-        try {
-        	SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
-            simpleMailMessage.setTo(to);
-            simpleMailMessage.setSubject(subject);
-            simpleMailMessage.setText(text);
+        SimpleMailMessage simpleMailMessage = new SimpleMailMessage();
+        simpleMailMessage.setTo(to);
+        simpleMailMessage.setSubject(subject);
+        simpleMailMessage.setText(text);
 
-            javaMailSender.send(simpleMailMessage);
-            
-		} catch (Exception e) {
-			System.out.println("Error: " + e.getMessage());
-		}
+        javaMailSender.send(simpleMailMessage);
     }
 
 }

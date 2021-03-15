@@ -21,31 +21,28 @@
 
 					<c:if test="${isAppointmentCreated != null}">
 						<c:if test="${isAppointmentCreated eq 'true'}">
-							<li class="w3-green w3-xlarge w3-padding-16">Appointment Created
+							<li class="w3-green w3-xlarge w3-padding-16">Date Created
 								Successfully</li>
 						</c:if>
 
 						<c:if test="${isAppointmentCreated eq 'false'}">
-							<li class="w3-red w3-xlarge w3-padding-16">Failed to create an appointment</li>
+							<li class="w3-red w3-xlarge w3-padding-16">Failed to create
+								a date</li>
 						</c:if>
 					</c:if>
 
-						<label id="appointmentDate">Enter appointment date:</label>
-						<input class="w3-input w3-padding-16"
-						name="appointmentDate"
-						autocomplete="off" type="date" id="appointmentDate"> 
-						
-						<label id="appointmentTime">Enter appointment time:</label>
-						<input
-						class="w3-input w3-padding-16" 
-						name="appointmentTime" id="appointmentTime" autocomplete="off" type="time">
-						
-						<input
-						class="w3-input w3-padding-16" autocomplete="off" placeholder="Enter number os seats"
-						name="seatsNumber" type="number">
+					<label id="appointmentDate">Enter appointment date:</label> <input
+						class="w3-input w3-padding-16" name="appointmentDate"
+						autocomplete="off" type="date" id="appointmentDate"> <label
+						id="appointmentTime">Enter appointment time:</label> <input
+						class="w3-input w3-padding-16" name="appointmentTime"
+						id="appointmentTime" autocomplete="off" type="time"> <input
+						class="w3-input w3-padding-16" autocomplete="off"
+						placeholder="Enter number os seats" name="seatsNumber"
+						type="number">
 					<li class="w3-light-grey w3-padding-24">
-						<button class="w3-button w3-white w3-padding-large w3-hover-black">Sign
-							Up</button>
+						<button class="w3-button w3-white w3-padding-large w3-hover-black">Create
+							new date</button>
 					</li>
 				</form>
 

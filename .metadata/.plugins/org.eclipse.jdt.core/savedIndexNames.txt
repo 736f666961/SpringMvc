@@ -34,7 +34,6 @@ INDEX VERSION 1.131+C:\Users\Sofia\Desktop\SprMvc\.metadata\.plugins\org.eclipse
 2469204777.index
 1537856836.index
 2276873385.index
-1370273268.index
 1758098819.index
 3452393425.index
 1620622962.index
