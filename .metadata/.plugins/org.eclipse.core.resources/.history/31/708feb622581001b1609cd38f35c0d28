@@ -1,0 +1,13 @@
+package ma.youcode.api.service;
+
+import java.util.List;
+
+import ma.youcode.api.model.User;
+
+public interface AdminService {
+	List<User> loadUsers();
+
+	int acceptUser(String id);
+
+	void rejectUser(String id);
+}

@@ -1,0 +1,15 @@
+package ma.youcode.api.dao;
+
+import java.util.List;
+
+import ma.youcode.api.model.Appointment;
+
+public class AppointmentDAOImpl implements AppointmentDAO {
+
+	@Override
+	public List<Appointment> getAllAppointments() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+}

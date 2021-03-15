@@ -1,0 +1,13 @@
+package ma.youcode.api.dao;
+
+import java.util.List;
+
+import ma.youcode.api.model.User;
+
+public interface AdminDAO {
+	List<User> loadUsers();
+
+	void acceptUser(String id);
+
+	void rejectUser(String id);
+}	

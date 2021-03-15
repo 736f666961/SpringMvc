@@ -1,0 +1,5 @@
+package ma.youcode.api.dao;
+
+public interface EmailDAO {
+
+}

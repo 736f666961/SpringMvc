@@ -1,0 +1,38 @@
+package ma.youcode.api.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ma.youcode.api.dao.AdminDAO;
+import ma.youcode.api.dao.EmailDAO;
+import ma.youcode.api.model.User;
+
+@Service
+public class AdminServiceImpl implements AdminService {
+	@Autowired
+	private AdminDAO adminDao;
+	
+	@Autowired
+	private EmailDAO emailDAO;
+	
+	@Override
+	public List<User> loadUsers() {
+		List<User> usersList = adminDao.loadUsers();
+		return usersList;
+	}
+
+	@Override
+	public void acceptUser(String id) {
+		int affectedRow = adminDao.acceptUser(id);
+		
+	}
+
+	@Override
+	public void rejectUser(String id) {
+		adminDao.rejectUser(id);
+		
+	}
+
+}

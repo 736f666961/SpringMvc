@@ -1,0 +1,37 @@
+package ma.youcode.api.dao;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.stereotype.Repository;
+
+import ma.youcode.api.model.User;
+import ma.youcode.api.rowmapper.UserRowMapper;
+
+@Repository
+public class AdminDAOImpl implements AdminDAO {
+	@Autowired
+	private JdbcTemplate jdbcTemplate;
+
+	@Override
+	public List<User> loadUsers() {
+
+		String sql = "SELECT * FROM users WHERE isAuthenticated = 0";
+
+		List<User> usersList = jdbcTemplate.query(sql, new UserRowMapper());
+
+		return usersList;
+	}
+
+	@Override
+	public void acceptUser(String id) {
+		String updateQuery = "UPDATE users SET isAuthenticated = ? WHERE id = ?";
+		
+		jdbcTemplate.update(updateQuery, "1", id);
+		
+		System.out.println("user accepted with ID: " + id);
+		
+	}
+
+}

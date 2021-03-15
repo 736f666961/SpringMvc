@@ -1,0 +1,24 @@
+package ma.youcode.api.rowmapper;
+
+import java.sql.ResultSet;
+import java.sql.SQLException;
+
+import org.springframework.jdbc.core.RowMapper;
+
+import ma.youcode.api.model.Appointment;
+
+public class AppointmentRowMapper implements RowMapper<Appointment> {
+
+	@Override
+	public Appointment mapRow(ResultSet rs, int rowNum) throws SQLException {
+		User user = new User();
+		Appointment appointment = new Appointment(
+				rs.getInt("id"), rs.getString("appointment_date"),
+				rs.getString("appointment_time"), 
+				rs.getString("seats_number"), rs.getBoolean("isTaken"),
+				rs.getBoolean("isAccepted"), user);
+
+		return appointment;
+	}
+
+}

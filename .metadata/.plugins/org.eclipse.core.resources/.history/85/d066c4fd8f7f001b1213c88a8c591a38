@@ -1,0 +1,5 @@
+package ma.youcode.api.service;
+
+public interface AdminService {
+	
+}

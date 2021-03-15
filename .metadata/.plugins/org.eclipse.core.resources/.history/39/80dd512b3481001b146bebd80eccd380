@@ -1,0 +1,29 @@
+package ma.youcode.api.config;
+
+import java.util.Properties;
+
+import org.springframework.context.annotation.Bean;
+import org.springframework.mail.javamail.JavaMailSender;
+import org.springframework.mail.javamail.JavaMailSenderImpl;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
+
+
+public class MailConfig implements WebMvcConfigurer {
+    @Bean
+    public JavaMailSender getJavaMailSender() {
+        JavaMailSenderImpl javaMailSender = new JavaMailSenderImpl();
+
+        javaMailSender.setHost("smtp.gmail.com");
+        javaMailSender.setUsername("ghayatifath@gmail.com");
+        javaMailSender.setPassword("NASAamrecain11");
+        javaMailSender.setPort(587);
+
+        Properties mailProperties = new Properties();
+        mailProperties.put("mail.smtp.starttls.enable", false);
+        mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+
+        javaMailSender.setJavaMailProperties(mailProperties);
+
+        return javaMailSender;
+    }
+}

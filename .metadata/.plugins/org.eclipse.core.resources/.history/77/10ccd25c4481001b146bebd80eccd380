@@ -1,0 +1,55 @@
+package ma.youcode.api.controller;
+
+import java.util.List;
+import java.util.Map;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+
+import ma.youcode.api.model.User;
+import ma.youcode.api.service.AdminService;
+import ma.youcode.api.service.MailServiceImpl;
+
+@Controller
+public class AdminController {
+
+	@Autowired
+	private AdminService adminService;
+	
+	@Autowired
+	private MailServiceImpl mailServiceImpl;
+	
+	@GetMapping(value = "/admin")
+	public String admin(Model model) {
+		List<User> usersList = adminService.loadUsers();
+
+		model.addAttribute("users", usersList);
+
+		return "admin";
+	}
+	
+	@PostMapping(value = "/accept")
+	public String accept(User user) {
+		System.out.println("Accept User: " + user);
+		mailServiceImpl.sendSimpleMessage("ghayatifath@gmail.com", "reject", "new");
+		
+//		adminService.acceptUser(id);
+		
+		return "redirect:/admin";
+	}
+	
+	@PostMapping(value = "/reject")
+	public String reject(User user) {
+		System.out.println("Reject User: " + user);
+		
+//		adminService.rejectUser(id);
+
+		return "redirect:/admin";
+	}
+	
+	
+}

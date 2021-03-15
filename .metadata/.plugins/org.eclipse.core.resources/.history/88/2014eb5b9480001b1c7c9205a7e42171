@@ -1,0 +1,51 @@
+package ma.youcode.api.service;
+
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Service;
+
+import ma.youcode.api.dao.UserDAO;
+import ma.youcode.api.model.Appointment;
+import ma.youcode.api.model.User;
+
+@Service
+public class UserServiceImpl implements UserService {
+	@Autowired
+	private UserDAO userDAO;
+	
+	@Override
+	public int saveUser(User user) {
+		int affectedRow = userDAO.saveUser(user);
+		return affectedRow;
+	}
+
+	@Override
+	public User login(String email, String password) {
+		return userDAO.login(email, password);
+	}
+
+	@Override
+	public int makeAppointment(Appointment appointment, int userId) {
+		int affectedRow = userDAO.makeAppointment(appointment, userId);
+		
+		if (validateAppointment(appointment)) {
+			return affectedRow;
+		} else {
+			return 0;
+		}
+		
+	}
+
+	@Override
+	public boolean validateAppointment(Appointment appointment) {
+		boolean isDateEmpty = appointment.getAppointmentDate().isEmpty();
+		boolean isTimeEmpty = appointment.getAppointmentTime().isEmpty();
+		boolean isSeatsNumberEmpty = appointment.getSeatsNumber().isEmpty();
+		
+		if (isDateEmpty && isTimeEmpty && isSeatsNumberEmpty) {
+			return false;
+		} else {
+			return true;
+		}
+		
+	}
+}

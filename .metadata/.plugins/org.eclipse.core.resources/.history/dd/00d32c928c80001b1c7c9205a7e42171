@@ -1,0 +1,20 @@
+package ma.youcode.api.service;
+
+import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
+
+import ma.youcode.api.dao.AppointmentDAO;
+import ma.youcode.api.model.Appointment;
+
+public class AppointmentServiceImpl implements AppointmentService {
+	@Autowired
+	private AppointmentDAO appointmentDao;
+	
+	@Override
+	public List<Appointment> getAllAppointments() {
+		List<Appointment> appointmentsList = appointmentDao.getAllAppointments();
+		return appointmentsList;
+	}
+
+}

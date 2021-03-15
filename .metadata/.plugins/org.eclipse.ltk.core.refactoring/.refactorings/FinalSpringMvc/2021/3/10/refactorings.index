@@ -1,0 +1,10 @@
+1615053485827	Delete element
+1615070625092	Delete element
+1615071131390	Move 'views' to 'WEB-INF'
+1615071586225	Delete element
+1615071627383	Rename resource 'home'
+1615071656219	Delete element
+1615072329997	Move 'home.css' to 'css'
+1615072334029	Delete element
+1615072358507	Move 'css' to 'resources'
+1615073586418	Rename type 'AdminDao'

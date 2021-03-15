@@ -1,0 +1,5 @@
+package ma.youcode.api.rowmapper;
+
+public class AppointmentRowMapper {
+
+}

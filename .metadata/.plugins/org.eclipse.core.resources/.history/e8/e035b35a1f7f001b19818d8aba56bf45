@@ -1,0 +1,16 @@
+package ma.youcode.api.dao;
+
+import org.springframework.stereotype.Repository;
+
+import ma.youcode.api.model.User;
+
+@Repository
+public class UserDaoImpl implements UserDao {
+
+	@Override
+	public void saveUser(User user) {
+		// TODO Auto-generated method stub
+		System.out.println("s");
+	}
+
+}
