@@ -26,19 +26,28 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(String email, String password) {
 		if (validateLogin(email, password)) {
-			System.out.println("Email: " + email);
-			System.out.println("Password: " + password);
+			System.out.println("UserServiceImpl not null");
 			return userDAO.login(email, password);
 		} else {
+			System.out.println("UserServiceImpl null");
 			return null;
 		}
 	}
 
 	@Override
-	public int makeAppointment(Dates date, int id) {
-
+	public int makeAppointment(Dates date, int id, int dateId) {
+		String appointmentDate;
+		String appointmentTime;
+		String seatsNumber;
+		
 		if (this.validateAppointment(date)) {
-			int affectedRow = userDAO.makeAppointment(date, id);
+			String str = date.getAppointmentDate() ;
+			String[] arrOfStr = str.split(",");
+			appointmentDate = arrOfStr[0];
+			appointmentTime = date.getAppointmentTime();
+			seatsNumber = date.getSeatsNumber().toString();
+			
+			int affectedRow = userDAO.makeAppointment(appointmentDate, appointmentTime, seatsNumber, id, dateId);
 			return affectedRow;
 		} else {
 			return 0;

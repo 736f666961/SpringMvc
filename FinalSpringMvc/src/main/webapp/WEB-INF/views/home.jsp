@@ -19,18 +19,19 @@
 		<!-- Header/Home -->
 		<header class="w3-container w3-padding-32 w3-center w3-black"
 			id="home">
-			<h1 class="w3-jumbo">
+	<!--		<h1 class="w3-jumbo">
 				<span class="w3-hide-small">I'm</span> Sofia Tancredy.
 			</h1>
-			<p>Sofia School Manager.</p>
-			<img src="/FinalSpringMvc/url/images/main.png" alt="boy"
-				class="w3-image" width="992" height="1108">
+			<p>Sofia School Manager.</p> -->
+	<!--		<img src="/FinalSpringMvc/url/images/main.png" alt="boy"
+				class="w3-image" width="992" height="1108"> -->
+				<img alt="" class="w3-image" src="https://youcode.ma/images/logo.png">
 		</header>
 		<div class=" w3-button w3-white w3-padding-large"
 			style="position: absolute; right: 0; top: 0;">
 			<a href="logout" class="w3-button">Logout</a>
 		</div>
-		<!-- About Section -->
+		<!-- About Section 
 		<div class="w3-content w3-justify w3-text-grey w3-padding-64"
 			id="about">
 			<h2 class="w3-text-light-grey">Sofia Tancredy</h2>
@@ -45,6 +46,7 @@
 			<p>
 			<p></p>
 		</div>
+		-->
 		<!-- Signup & Login Section -->
 		<div class="w3-content w3-justify w3-text-grey w3-padding-64"
 			id="login-signup-section">
@@ -152,8 +154,9 @@
 						<select class="w3-select w3-padding-16" name="appointmentDate">
 							<option class="w3-padding-16" value="" disabled selected>Choose
 								date appointment</option>
+
 							<c:forEach var="date" items="${datesList}">
-								<option class="w3-padding-16" value="${date.appointmentDate}">${date.appointmentDate}</option>
+								<option class="w3-padding-16" value="${date.appointmentDate}, ${date.id}">${date.appointmentDate}</option>
 							</c:forEach>
 							
 						</select> 

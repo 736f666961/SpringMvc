@@ -12,24 +12,20 @@ import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
-import org.springframework.orm.hibernate5.HibernateTransactionManager;
 import org.springframework.orm.hibernate5.LocalSessionFactoryBean;
-import org.springframework.transaction.PlatformTransactionManager;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
-import org.springframework.transaction.annotation.TransactionManagementConfigurer;
 
-/**
- * Hibernate Configuration for Spring MVC  App
- * 
- */
+import com.mysql.cj.xdevapi.SessionFactory;
+
 @Configuration
-//@EnableTransactionManagement
 @ComponentScan({ "ma.youcode.api.config" })
 @PropertySource(value = { "classpath:application.properties" })
 public class HibernateConfig {
 
 	@Autowired
 	private Environment environment;
+
+	// Create session factory
+	private SessionFactory sessionFactory = null;
 
 	@Bean
 	public LocalSessionFactoryBean sessionFactory() {
@@ -50,7 +46,6 @@ public class HibernateConfig {
 		return dataSource;
 	}
 
-	
 	public Properties hibernateProperties() {
 		Properties properties = new Properties();
 		properties.put("hibernate.dialect", environment.getProperty("hibernate.dialect"));
@@ -59,25 +54,11 @@ public class HibernateConfig {
 		properties.put("hibernate.hbm2ddl.auto", environment.getProperty("hibernate.hbm2ddl.auto"));
 		return properties;
 	}
-	
-	@Bean
-	public JdbcTemplate jdbcTemplate() {
-		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-		return jdbcTemplate;
-	}
 
 //	@Bean
-//	public PlatformTransactionManager txManager() {
-//		HibernateTransactionManager htm = new HibernateTransactionManager();
-//		htm.setSessionFactory(sessionFactory().getObject());
-//		return htm;
+//	public JdbcTemplate jdbcTemplate() {
+//		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
+//		return jdbcTemplate;
 //	}
-//
-//	@Override
-//	public PlatformTransactionManager annotationDrivenTransactionManager() {
-//		return txManager();
-//	}
+
 }
-
-
-

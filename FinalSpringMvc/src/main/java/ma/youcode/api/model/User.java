@@ -29,10 +29,10 @@ public class User {
 	@Column(name = "password")
 	private String password;
 
-	@Column(name = "role")
+	@Column(name = "role", columnDefinition = "varchar(255) default 'user'") 
 	private String role;
 
-	@Column(name = "isAuthenticated")
+	@Column(name = "isAuthenticated", columnDefinition = "int default false") 
 	private boolean isAuthenticated;
 
 	@OneToMany(mappedBy = "user")

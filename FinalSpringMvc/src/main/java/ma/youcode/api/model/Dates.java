@@ -5,6 +5,7 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.Transient;
 
 @Entity
 public class Dates {
@@ -21,9 +22,27 @@ public class Dates {
 	@Column(name = "seats_number")
 	private Integer seatsNumber;
 
+	public Dates() {
+		super();
+	}
+
+	public Dates(Dates date) {
+		this.id = date.id;
+		this.appointmentDate = date.appointmentDate;
+		this.appointmentTime = date.appointmentTime;
+		this.seatsNumber = date.seatsNumber;
+	}
+
 	public Dates(Integer id, String appointmentDate, String appointmentTime, Integer seatsNumber) {
 		super();
 		this.id = id;
+		this.appointmentDate = appointmentDate;
+		this.appointmentTime = appointmentTime;
+		this.seatsNumber = seatsNumber;
+	}
+
+	public Dates(String appointmentDate, String appointmentTime, Integer seatsNumber) {
+		super();
 		this.appointmentDate = appointmentDate;
 		this.appointmentTime = appointmentTime;
 		this.seatsNumber = seatsNumber;

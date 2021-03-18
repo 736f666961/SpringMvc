@@ -15,7 +15,7 @@ public interface AdminService {
 	
 	List<Appointment> loadAppointments();
 
-	void acceptAppointment(Integer id, String email);
+	void acceptAppointment(Integer id, String email, int dateId);
 
 	void rejectAppointment(Integer id, String email);
 

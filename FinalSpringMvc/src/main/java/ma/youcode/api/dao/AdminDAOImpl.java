@@ -2,97 +2,156 @@ package ma.youcode.api.dao;
 
 import java.util.List;
 
+import javax.persistence.Query;
+
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
 import ma.youcode.api.model.Appointment;
 import ma.youcode.api.model.Dates;
 import ma.youcode.api.model.User;
-import ma.youcode.api.rowmapper.AppointmentRowMapper;
-import ma.youcode.api.rowmapper.UserRowMapper;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private SessionFactory sessionFactory;
+
+	private Session session = null;
 
 	@Override
 	public List<User> loadUsers() {
+		session = sessionFactory.openSession();
 
-		String sql = "SELECT * FROM users WHERE isAuthenticated = 0";
+		session.beginTransaction();
 
-		List<User> usersList = jdbcTemplate.query(sql, new UserRowMapper());
+		String hql = "From User WHERE isAuthenticated = 0";
+
+		List<User> usersList = session.createQuery(hql).getResultList();
+
+		session.close();
 
 		return usersList;
+
 	}
 
 	@Override
 	public int acceptUser(String id) {
-		String updateQuery = "UPDATE users SET isAuthenticated = 1 WHERE id = ?";
-		
-		int afftedRows = jdbcTemplate.update(updateQuery, id);
-		
+		String hqlUpdate = "UPDATE User SET isAuthenticated = 1 WHERE id = :id";
 
-		System.out.println("user accepted with ID: " + id);
-		System.out.println("Affected Rows: " + afftedRows);
-		
-		return afftedRows;
-		
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery(hqlUpdate);
+		query.setParameter("id", Integer.parseInt(id));
+
+		int affectedRows = query.executeUpdate();
+		session.getTransaction().commit();
+
+		return affectedRows;
+
 	}
 
 	@Override
 	public int rejectUser(String id) {
-		String deleteQuery = "DELETE FROM users WHERE id = ?";
-		int afftedRows = jdbcTemplate.update(deleteQuery, id);
-		System.out.println("rejectUser - Affected Rows: " + afftedRows);
-		
-		return afftedRows;
+		String hqlDelete = "DELETE FROM User WHERE id = :id";
+
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery(hqlDelete);
+		query.setParameter("id", Integer.parseInt(id));
+
+		int affectedRows = query.executeUpdate();
+		session.getTransaction().commit();
+
+		return affectedRows;
 	}
 
 	@Override
 	public List<Appointment> loadAppointments() {
-		String sql = "SELECT *\r\n"
-				+ "FROM appointments\r\n"
-				+ "INNER JOIN users ON appointments.user_id = users.id AND \r\n"
-				+ "appointments.isTaken = 1 AND appointments.isAccepted != 1;";
 
-		List<Appointment> appointmentsList = jdbcTemplate.query(sql, new AppointmentRowMapper());
-		System.out.println(appointmentsList);
-		return appointmentsList;
+		String hql = "FROM Appointment AS a WHERE a.isAccepted != 1";
+
+		session = sessionFactory.openSession();
+
+		session.beginTransaction();
+
+		List<Appointment> appointments = session.createQuery(hql).getResultList();
+
+		session.close();
+
+		return appointments;
+
 	}
 
 	@Override
-	public int acceptAppointment(Integer id) {
-		String updateQuery = "UPDATE appointments SET isAccepted = 1 WHERE id = ?";
-		
-		int afftedRows = jdbcTemplate.update(updateQuery, id);
+	public int acceptAppointment(Integer id, int dateId) {
 
-		System.out.println("Appointment accepted with ID: " + id);
-		System.out.println("Affected Rows: " + afftedRows);
-		
-		return afftedRows;
+		deleteDate(dateId);
+
+		String updateQuery = "UPDATE Appointment SET isAccepted = 1 WHERE id = :id";
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery(updateQuery);
+		query.setParameter("id", id);
+
+		int affectedRows = query.executeUpdate();
+		session.getTransaction().commit();
+
+		return affectedRows;
 	}
 
 	@Override
 	public int rejectAppointment(Integer id) {
-		String deleteQuery = "DELETE FROM appointments WHERE id = ?";
-		int afftedRows = jdbcTemplate.update(deleteQuery, id);
-		System.out.println("rejectAppointment - Affected Rows: " + afftedRows);
-		
-		return afftedRows;
+		String deleteQuery = "DELETE FROM Appointment WHERE id = :id";
+
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery(deleteQuery);
+		query.setParameter("id", id);
+
+		int affectedRows = query.executeUpdate();
+		session.getTransaction().commit();
+
+		return affectedRows;
 	}
 
 	@Override
 	public int createAppointment(Dates date) {
-		Object[] sqlArgs = { date.getAppointmentDate(), date.getAppointmentTime(), date.getSeatsNumber() };
+		String appointmentDate = date.getAppointmentDate();
+		String appointmentTime = date.getAppointmentTime();
+		int seatsNumber = date.getSeatsNumber();
 
-		String sql = "INSERT INTO dates(appointment_date, appointment_time, seats_number) VALUES(?, ?, ?)";
+		Dates d = new Dates(appointmentDate, appointmentTime, seatsNumber);
 
-		int affectedRow = jdbcTemplate.update(sql, sqlArgs);
+		session = sessionFactory.openSession();
+		session.beginTransaction();
 
-		return affectedRow;
+		int affectedRows = (int) session.save(d);
+
+		session.getTransaction().commit();
+
+		return affectedRows;
+
+	}
+
+	@Override
+	public void deleteDate(int id) {
+		String deleteQuery = "DELETE FROM Dates WHERE id = :id";
+
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		Query query = session.createQuery(deleteQuery);
+		query.setParameter("id", id);
+		query.executeUpdate();
+
+		session.getTransaction().commit();
+
 	}
 
 }
-

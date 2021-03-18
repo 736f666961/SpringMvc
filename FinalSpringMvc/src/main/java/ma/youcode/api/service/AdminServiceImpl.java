@@ -49,8 +49,8 @@ public class AdminServiceImpl implements AdminService {
 	}
 
 	@Override
-	public void acceptAppointment(Integer id, String email) {
-		int affectedRow = adminDao.acceptAppointment(id);
+	public void acceptAppointment(Integer id, String email, int dateId) {
+		int affectedRow = adminDao.acceptAppointment(id, dateId);
 		
 		if (affectedRow > 0) {
 			mailServiceImpl.sendSimpleMessage(email, "Accepted", "Sofia has accepted your appointment to sofia school");

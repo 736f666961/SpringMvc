@@ -1,55 +1,85 @@
 package ma.youcode.api.dao;
 
-import java.util.List;
-
+import org.hibernate.Session;
+import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.stereotype.Repository;
 
+import ma.youcode.api.model.Appointment;
 import ma.youcode.api.model.Dates;
 import ma.youcode.api.model.User;
-import ma.youcode.api.rowmapper.UserRowMapper;
 
 @Repository
 public class UserDAOImpl implements UserDAO {
-
 	@Autowired
-	private JdbcTemplate jdbcTemplate;
+	private SessionFactory sessionFactory;
+
+	private Session session = null;
 
 	@Override
 	public int saveUser(User user) {
-		Object[] sqlArgs = { user.getFirstName(), user.getLastName(), user.getEmail(), user.getPassword() };
+		String firstName = user.getFirstName();
+		String lastName = user.getLastName();
+		String email = user.getEmail();
+		String password = user.getPassword();
 
-		String sql = "INSERT INTO users(first_name, last_name, email, password) VALUES(?, ?, ?, ?)";
+		User u = new User(firstName, lastName, email, password);
 
-		int isSignedUp = jdbcTemplate.update(sql, sqlArgs);
+		session = sessionFactory.openSession();
+		session.beginTransaction();
 
-		return isSignedUp;
+		int affectedRows = (int) session.save(u);
+
+		session.getTransaction().commit();
+
+		return affectedRows;
 
 	}
 
 	@Override
 	public User login(String email, String password) {
-		String loginQuery = "SELECT * FROM users WHERE email = ? AND password = ?";
-		List<User> user = jdbcTemplate.query(loginQuery, new UserRowMapper(), new Object[] { email, password });
+		System.out.println("Login Called");
+		session = sessionFactory.openSession();
 
-		if (user.size() > 0) {
-			return user.get(0);
+		session.beginTransaction();
+
+		String hql = "From User WHERE email = :email AND password = :password";
+
+		User user = (User) session.createQuery(hql).setParameter("email", email).setParameter("password", password)
+				.uniqueResult();
+
+		if (user != null) {
+			System.out.println("UserDaoImpl not null");
+			return user;
 		} else {
+			System.out.println("UserDaoImpl null");
 			return null;
 		}
+
 	}
 
 	@Override
-	public int makeAppointment(Dates date, int id) {
+	public int makeAppointment(String appointmentDate, String appointmentTime, String seatsNumber, int id, int dateId) {
 
-		Object[] sqlArgs = { date.getAppointmentDate(), date.getAppointmentTime(), date.getSeatsNumber(), id , 1};
+		User u = new User();
+		u.setId(id);
 
-		String sql = "INSERT INTO appointments(appointment_date, appointment_time, seats_number, user_id, isTaken) VALUES(?, ?, ?, ?, ?)";
-		
-		int isSignedUp = jdbcTemplate.update(sql, sqlArgs);
+		Appointment a = new Appointment();
+		a.setAppointmentDate(appointmentDate);
+		a.setAppointmentTime(appointmentTime);
+		a.setSeatsNumber(seatsNumber);
+		a.setDateId(dateId);
+		a.setUser(u);
+		a.setTaken(true);
 
-		return isSignedUp;
+		session = sessionFactory.openSession();
+		session.beginTransaction();
+
+		int affectedRows = (int) session.save(a);
+
+		session.getTransaction().commit();
+
+		return affectedRows;
 	}
 
 }

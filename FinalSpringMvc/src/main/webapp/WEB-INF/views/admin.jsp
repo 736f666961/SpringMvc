@@ -61,21 +61,21 @@
 				<th class="w3-center w3-small">Approve</th>
 			</tr>
 
-			<c:forEach var="student" items="${users}">
+			<c:forEach var="user" items="${users}">
 				<tr>
-					<td class="w3-center w3-tiny">${student.firstName}</td>
-					<td class="w3-center w3-tiny">${student.lastName}</td>
-					<td class="w3-center w3-tiny">${student.email}</td>
+					<td class="w3-center w3-tiny">${user.firstName}</td>
+					<td class="w3-center w3-tiny">${user.lastName}</td>
+					<td class="w3-center w3-tiny">${user.email}</td>
 					<td class="w3-center w3-row"
 						style="display: flex; width: fit-content; margin: 0 auto;">
 						<form action="accept" method="post">
-							<input type="hidden" name="id" value="${student.id}"> <input
-								type="hidden" name="email" value="${student.email}">
+							<input type="hidden" name="id" value="${user.id}"> <input
+								type="hidden" name="email" value="${user.email}">
 							<button type="submit" class="w3-button w3-tiny">Accept</button>
 						</form>
 						<form action="reject" method="post">
-							<input type="hidden" name="id" value="${student.id}"> <input
-								type="hidden" name="email" value="${student.email}">
+							<input type="hidden" name="id" value="${user.id}"> <input
+								type="hidden" name="email" value="${user.email}">
 							<button type="submit" class="w3-button w3-tiny">Reject</button>
 						</form>
 					</td>
@@ -97,7 +97,6 @@
 				<th class="w3-center w3-small">Approve</th>
 			</tr>
 
-
 			<c:forEach var="appointment" items="${appointmentsList}">
 				<tr>
 					<td class="w3-center w3-tiny">${appointment.user.firstName}</td>
@@ -109,6 +108,7 @@
 					<td class="w3-center w3-row"
 						style="display: flex; width: fit-content; margin: 0 auto;">
 						<form action="acceptAppointment" method="post">
+							<input type="hidden" name="dateId" value="${appointment.dateId}">
 							<input type="hidden" name="id" value="${appointment.id}">
 							<input type="hidden" name="user.email"
 								value="${appointment.user.email}">

@@ -2,11 +2,9 @@ package ma.youcode.api.config;
 
 import java.util.Properties;
 
-import org.springframework.context.MessageSource;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.ComponentScan;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.JavaMailSenderImpl;
 import org.springframework.web.servlet.ViewResolver;
@@ -16,10 +14,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-/**
- * Application Configuration for Spring MVC App
- * 
- */
+
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "ma.youcode.api")
@@ -33,13 +28,6 @@ public class AppConfig implements WebMvcConfigurer {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-
-//	@Bean
-//	public MessageSource messageSource() {
-//		ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-//		messageSource.setBasename("messages");
-//		return messageSource;
-//	}
 	
     @Bean
     public JavaMailSender getJavaMailSender() {
@@ -48,7 +36,7 @@ public class AppConfig implements WebMvcConfigurer {
         System.out.println("getJavaMailSender() called");
         javaMailSenderImpl.setHost("smtp.gmail.com");
         javaMailSenderImpl.setUsername("ghayatifath@gmail.com");
-        javaMailSenderImpl.setPassword("NASAamrecainfine1");
+        javaMailSenderImpl.setPassword("NEWGmrebs73534%&^77");
         javaMailSenderImpl.setPort(587);
 
         Properties mailProperties = new Properties();

@@ -15,9 +15,13 @@ public interface AdminDAO {
 
 	List<Appointment> loadAppointments();
 
-	int acceptAppointment(Integer id);
+	int acceptAppointment(Integer id, int dateId);
 
 	int rejectAppointment(Integer id);
 
 	int createAppointment(Dates date);
+	
+	void deleteDate(int id);
+	
+	
 }	

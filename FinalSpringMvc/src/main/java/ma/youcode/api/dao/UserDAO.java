@@ -1,6 +1,5 @@
 package ma.youcode.api.dao;
 
-import ma.youcode.api.model.Dates;
 import ma.youcode.api.model.User;
 
 public interface UserDAO {
@@ -8,5 +7,5 @@ public interface UserDAO {
 
 	User login(String email, String password);
 	
-	int makeAppointment(Dates dates, int id);
+	int makeAppointment(String appointmentDate, String appointmentTime, String seatsNumber, int id, int dateId);
 }

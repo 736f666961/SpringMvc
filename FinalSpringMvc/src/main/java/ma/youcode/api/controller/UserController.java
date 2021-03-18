@@ -10,7 +10,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.SessionAttributes;
 
 import ma.youcode.api.model.Dates;
 import ma.youcode.api.model.User;
@@ -21,7 +20,7 @@ import ma.youcode.api.service.UserService;
 public class UserController {
 	@Autowired
 	private UserService userService;
-	
+
 	@Autowired
 	private AppointmentService appointmentService;
 
@@ -33,18 +32,17 @@ public class UserController {
 	@GetMapping(value = "/")
 	public String home(Model model) {
 		List<Dates> datesList = appointmentService.getAllDates();
-		
+
 		model.addAttribute("isSignedUp", isSignedUp);
 		model.addAttribute("isLoggedIn", isLoggedIn);
 		model.addAttribute("isAppointmentMade", isAppointmentMade);
 		model.addAttribute("datesList", datesList);
-		
+
 		return "home";
 	}
 
 	@PostMapping(value = "/signup")
 	public String signup(User user) {
-		System.out.println("User: " + user);
 		int affectedRow = userService.saveUser(user);
 
 		if (affectedRow > 0) {
@@ -55,25 +53,22 @@ public class UserController {
 
 		return "redirect:/";
 	}
-	
+
 	@PostMapping(value = "/login")
 	public String login(Model model, User user, HttpSession session) {
-		
+
 		User theUser = userService.login(user.getEmail(), user.getPassword());
-		
+
 		if (theUser != null) {
 			isLoggedIn = "true";
 			this.currentUser = theUser;
-			
+
 			if (this.currentUser.getRole().equals("admin")) {
-//				model.addAttribute("currentUser", this.currentUser);
 				session.setAttribute("currentUser", this.currentUser);
-				
-				System.out.println("Current user is admin ");
+
 				return "redirect:/admin";
 			}
-			
-			
+
 		} else {
 			isLoggedIn = "false";
 		}
@@ -85,28 +80,32 @@ public class UserController {
 	public String logout(HttpServletRequest request) {
 		HttpSession session = request.getSession();
 		session.invalidate();
-		
+
 		isSignedUp = null;
 		isLoggedIn = null;
 		isAppointmentMade = null;
 		currentUser = null;
-		
-		
+
 		return "redirect:/";
 	}
-	
+
 	@PostMapping(value = "/appointment")
 	public String makeAppointment(Dates date) {
+
 		if (currentUser != null) {
-			int affectedRow = userService.makeAppointment(date, currentUser.getId());
-			System.out.println("Current User: " + currentUser);
-			
+			String str = date.getAppointmentDate();
+			String[] arrOfStr = str.split(",");
+
+			int dateId = Integer.parseInt(arrOfStr[1].trim());
+
+			int affectedRow = userService.makeAppointment(date, currentUser.getId(), dateId);
+
 			if (affectedRow > 0) {
 				isAppointmentMade = "true";
 			} else {
 				isAppointmentMade = "false";
 			}
-		}else {
+		} else {
 			isAppointmentMade = "false";
 		}
 		return "redirect:/";

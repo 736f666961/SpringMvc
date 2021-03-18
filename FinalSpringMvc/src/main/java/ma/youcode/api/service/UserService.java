@@ -8,7 +8,9 @@ public interface UserService {
 
 	User login(String email, String password);
 	
-	int makeAppointment(Dates date, int id);
+//	int makeAppointment(Dates date, int id, int dateId);
+	
+	int makeAppointment(Dates date, int id, int dateId);
 	
 	boolean validateSignup(User user);
 	

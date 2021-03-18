@@ -24,6 +24,9 @@ public class Appointment {
 	@Column(name = "seats_number")
 	private String seatsNumber;
 
+	@Column(name = "date_id")
+	private int dateId;
+
 	@Column(name = "isTaken")
 	private boolean isTaken;
 
@@ -37,8 +40,8 @@ public class Appointment {
 		super();
 	}
 
-	public Appointment(Integer id, String appointmentDate, String appointmentTime, String seatsNumber,
-			boolean isTaken, boolean isAccepted, User user) {
+	public Appointment(Integer id, String appointmentDate, String appointmentTime, String seatsNumber, boolean isTaken,
+			boolean isAccepted, User user) {
 		super();
 		this.id = id;
 		this.appointmentDate = appointmentDate;
@@ -97,6 +100,14 @@ public class Appointment {
 		this.user = user;
 	}
 
+	public int getDateId() {
+		return dateId;
+	}
+
+	public void setDateId(int dateId) {
+		this.dateId = dateId;
+	}
+
 	public boolean isAccepted() {
 		return isAccepted;
 	}
@@ -111,7 +122,5 @@ public class Appointment {
 				+ ", seatsNumber=" + seatsNumber + ", isTaken=" + isTaken + ", isAccepted=" + isAccepted + ", user="
 				+ user + "]";
 	}
-
-	
 
 }
