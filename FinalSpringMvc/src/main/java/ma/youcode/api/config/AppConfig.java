@@ -14,7 +14,6 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.web.servlet.view.InternalResourceViewResolver;
 import org.springframework.web.servlet.view.JstlView;
 
-
 @Configuration
 @EnableWebMvc
 @ComponentScan(basePackages = "ma.youcode.api")
@@ -28,30 +27,28 @@ public class AppConfig implements WebMvcConfigurer {
 		viewResolver.setSuffix(".jsp");
 		return viewResolver;
 	}
-	
-    @Bean
-    public JavaMailSender getJavaMailSender() {
-        JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
-        System.out.println("getJavaMailSender() called");
-        javaMailSenderImpl.setHost("smtp.gmail.com");
-        javaMailSenderImpl.setUsername("your email");
-        javaMailSenderImpl.setPassword("your passsword");
-        javaMailSenderImpl.setPort(587);
+	@Bean
+	public JavaMailSender getJavaMailSender() {
+		JavaMailSenderImpl javaMailSenderImpl = new JavaMailSenderImpl();
 
-        Properties mailProperties = new Properties();
-        mailProperties.put("mail.smtp.starttls.enable", true);
-        mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
+		System.out.println("getJavaMailSender() called");
+		javaMailSenderImpl.setHost("smtp.gmail.com");
+		javaMailSenderImpl.setUsername("your email");
+		javaMailSenderImpl.setPassword("your passsword");
+		javaMailSenderImpl.setPort(587);
 
-        javaMailSenderImpl.setJavaMailProperties(mailProperties);
+		Properties mailProperties = new Properties();
+		mailProperties.put("mail.smtp.starttls.enable", true);
+		mailProperties.put("mail.smtp.ssl.trust", "smtp.gmail.com");
 
-        return javaMailSenderImpl;
-    }
-	
-    @Override
-    public void addResourceHandlers(ResourceHandlerRegistry registry) {
-        registry
-            .addResourceHandler("/url/**")
-            .addResourceLocations("/resources/");
-    }
+		javaMailSenderImpl.setJavaMailProperties(mailProperties);
+
+		return javaMailSenderImpl;
+	}
+
+	@Override
+	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		registry.addResourceHandler("/url/**").addResourceLocations("/resources/");
+	}
 }
