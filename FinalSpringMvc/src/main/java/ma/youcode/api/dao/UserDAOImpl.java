@@ -24,6 +24,8 @@ public class UserDAOImpl implements UserDAO {
 		String password = user.getPassword();
 
 		User u = new User(firstName, lastName, email, password);
+		u.setAuthenticated(true);
+		u.setRole("user");
 
 		session = sessionFactory.openSession();
 		session.beginTransaction();
@@ -43,7 +45,7 @@ public class UserDAOImpl implements UserDAO {
 
 		session.beginTransaction();
 
-		String hql = "From User WHERE email = :email AND password = :password";
+		String hql = "From User WHERE email = :email AND password = :password AND isAuthenticated = 0";
 
 		User user = (User) session.createQuery(hql).setParameter("email", email).setParameter("password", password)
 				.uniqueResult();

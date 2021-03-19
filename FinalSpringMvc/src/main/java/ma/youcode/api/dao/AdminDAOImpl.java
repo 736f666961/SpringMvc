@@ -26,7 +26,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 		session.beginTransaction();
 
-		String hql = "From User WHERE isAuthenticated = 0";
+		String hql = "From User WHERE isAuthenticated = 1";
 
 		List<User> usersList = session.createQuery(hql).getResultList();
 
@@ -38,7 +38,7 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public int acceptUser(String id) {
-		String hqlUpdate = "UPDATE User SET isAuthenticated = 1 WHERE id = :id";
+		String hqlUpdate = "UPDATE User SET isAuthenticated = 0 WHERE id = :id";
 
 		session = sessionFactory.openSession();
 		session.beginTransaction();

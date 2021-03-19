@@ -40,16 +40,20 @@ public class UserServiceImpl implements UserService {
 		String appointmentTime;
 		String seatsNumber;
 		
-		if (this.validateAppointment(date)) {
-			String str = date.getAppointmentDate() ;
-			String[] arrOfStr = str.split(",");
-			appointmentDate = arrOfStr[0];
-			appointmentTime = date.getAppointmentTime();
-			seatsNumber = date.getSeatsNumber().toString();
-			
-			int affectedRow = userDAO.makeAppointment(appointmentDate, appointmentTime, seatsNumber, id, dateId);
-			return affectedRow;
-		} else {
+		try {
+			if (this.validateAppointment(date)) {
+				String str = date.getAppointmentDate() ;
+				String[] arrOfStr = str.split(",");
+				appointmentDate = arrOfStr[0];
+				appointmentTime = date.getAppointmentTime();
+				seatsNumber = date.getSeatsNumber().toString();
+				
+				int affectedRow = userDAO.makeAppointment(appointmentDate, appointmentTime, seatsNumber, id, dateId);
+				return affectedRow;
+			} else {
+				return 0;
+			}
+		}catch(NullPointerException nl) {
 			return 0;
 		}
 

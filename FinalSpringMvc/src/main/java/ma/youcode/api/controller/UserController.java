@@ -92,20 +92,24 @@ public class UserController {
 	@PostMapping(value = "/appointment")
 	public String makeAppointment(Dates date) {
 
-		if (currentUser != null) {
-			String str = date.getAppointmentDate();
-			String[] arrOfStr = str.split(",");
+		try {
+			if (currentUser != null) {
+				String str = date.getAppointmentDate();
+				String[] arrOfStr = str.split(",");
 
-			int dateId = Integer.parseInt(arrOfStr[1].trim());
+				int dateId = Integer.parseInt(arrOfStr[1].trim());
 
-			int affectedRow = userService.makeAppointment(date, currentUser.getId(), dateId);
+				int affectedRow = userService.makeAppointment(date, currentUser.getId(), dateId);
 
-			if (affectedRow > 0) {
-				isAppointmentMade = "true";
+				if (affectedRow > 0) {
+					isAppointmentMade = "true";
+				} else {
+					isAppointmentMade = "false";
+				}
 			} else {
 				isAppointmentMade = "false";
 			}
-		} else {
+		} catch(Exception e) {
 			isAppointmentMade = "false";
 		}
 		return "redirect:/";
