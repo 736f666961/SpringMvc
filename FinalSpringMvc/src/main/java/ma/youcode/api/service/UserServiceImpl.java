@@ -26,7 +26,7 @@ public class UserServiceImpl implements UserService {
 	@Override
 	public User login(String email, String password) {
 		if (validateLogin(email, password)) {
-			System.out.println("UserServiceImpl not null");
+//			System.out.println("UserServiceImpl not null");
 			return userDAO.login(email, password);
 		} else {
 			System.out.println("UserServiceImpl null");

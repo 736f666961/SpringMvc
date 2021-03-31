@@ -15,6 +15,7 @@ import ma.youcode.api.model.User;
 
 @Repository
 public class AdminDAOImpl implements AdminDAO {
+	
 	@Autowired
 	private SessionFactory sessionFactory;
 
@@ -88,20 +89,27 @@ public class AdminDAOImpl implements AdminDAO {
 
 	@Override
 	public int acceptAppointment(Integer id, int dateId) {
+		int affectedRows = 0;
 
-		deleteDate(dateId);
+		if (this.decrementSeatsNumber(dateId) > 0) {
 
-		String updateQuery = "UPDATE Appointment SET isAccepted = 1 WHERE id = :id";
-		session = sessionFactory.openSession();
-		session.beginTransaction();
+			String updateQuery = "UPDATE Appointment SET isAccepted = 1 WHERE id = :id";
+			session = sessionFactory.openSession();
+			session.beginTransaction();
 
-		Query query = session.createQuery(updateQuery);
-		query.setParameter("id", id);
+			Query query = session.createQuery(updateQuery);
+			query.setParameter("id", id);
 
-		int affectedRows = query.executeUpdate();
-		session.getTransaction().commit();
+			affectedRows = query.executeUpdate();
+			session.getTransaction().commit();
 
+			
+		} 
+		
+		System.out.println("affectedRows: " + affectedRows);
+		
 		return affectedRows;
+	
 	}
 
 	@Override
@@ -140,18 +148,19 @@ public class AdminDAOImpl implements AdminDAO {
 	}
 
 	@Override
-	public void deleteDate(int id) {
-		String deleteQuery = "DELETE FROM Dates WHERE id = :id";
+	public int decrementSeatsNumber(int id) {
+		String decrementQuery = "UPDATE Dates SET seatsNumber = seatsNumber - 1 WHERE seatsNumber > 0 AND id = :id";
 
 		session = sessionFactory.openSession();
 		session.beginTransaction();
 
-		Query query = session.createQuery(deleteQuery);
+		Query query = session.createQuery(decrementQuery);
 		query.setParameter("id", id);
-		query.executeUpdate();
 
+		int affectedRows = query.executeUpdate();
 		session.getTransaction().commit();
 
+		return affectedRows;
 	}
 
 }

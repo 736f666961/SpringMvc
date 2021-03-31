@@ -21,7 +21,6 @@ public interface AdminDAO {
 
 	int createAppointment(Dates date);
 	
-	void deleteDate(int id);
-	
+	int decrementSeatsNumber(int id);
 	
 }	

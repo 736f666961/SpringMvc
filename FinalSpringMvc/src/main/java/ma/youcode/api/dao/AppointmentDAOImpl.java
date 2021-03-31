@@ -23,7 +23,7 @@ public class AppointmentDAOImpl implements AppointmentDAO {
 
 		session.beginTransaction();
 
-		String hql = "From Dates";
+		String hql = "From Dates WHERE seatsNumber > 0";
 
 		List<Dates> datesList = session.createQuery(hql).getResultList();
 

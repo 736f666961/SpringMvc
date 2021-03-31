@@ -55,10 +55,4 @@ public class HibernateConfig {
 		return properties;
 	}
 
-//	@Bean
-//	public JdbcTemplate jdbcTemplate() {
-//		JdbcTemplate jdbcTemplate = new JdbcTemplate(dataSource());
-//		return jdbcTemplate;
-//	}
-
 }

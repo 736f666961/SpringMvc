@@ -29,7 +29,7 @@ public class AdminServiceImpl implements AdminService {
 		int affectedRow = adminDao.acceptUser(id);
 		
 		if (affectedRow > 0) {
-			mailServiceImpl.sendSimpleMessage(email, "Accepted", "Sofia has accepted your registration to sofia school");
+			mailServiceImpl.sendSimpleMessage(email, "Accepted", "Youcode has accepted you");
 		}
 	}
 
@@ -38,7 +38,7 @@ public class AdminServiceImpl implements AdminService {
 		int affectedRow = adminDao.rejectUser(id);
 		
 		if (affectedRow > 0) {
-			mailServiceImpl.sendSimpleMessage(email, "Rejected", "Sofia has rejected your registration to sofia school");
+			mailServiceImpl.sendSimpleMessage(email, "Rejected", "Youcode has rejected you");
 		}
 	}
 
@@ -53,7 +53,7 @@ public class AdminServiceImpl implements AdminService {
 		int affectedRow = adminDao.acceptAppointment(id, dateId);
 		
 		if (affectedRow > 0) {
-			mailServiceImpl.sendSimpleMessage(email, "Accepted", "Sofia has accepted your appointment to sofia school");
+			mailServiceImpl.sendSimpleMessage(email, "Accepted", "Youcode has accepted your appointment");
 		}
 		
 	}
@@ -63,7 +63,7 @@ public class AdminServiceImpl implements AdminService {
 		int affectedRow = adminDao.rejectAppointment(id);
 		
 		if (affectedRow > 0) {
-			mailServiceImpl.sendSimpleMessage(email, "Rejected", "Sofia has rejected your appointment to sofia school");
+			mailServiceImpl.sendSimpleMessage(email, "Rejected", "Youcode has rejected your appointment");
 		}
 		
 	}
